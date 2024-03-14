@@ -1,5 +1,6 @@
 package com.example.cryptoappk.presentation.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,20 +9,23 @@ import com.example.cryptoappk.databinding.ItemCoinInfoBinding
 import com.example.cryptoappk.domain.CoinInfo
 import com.squareup.picasso.Picasso
 
-class CoinInfoAdapter() :
-    RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
+class CoinInfoAdapter(private val context: Context) :
+    RecyclerView.Adapter<CoinInfoViewHolder>() {
 
     var coinInfoList: List<CoinInfo> = listOf()
         set(value) {
-            field = value //filed это по сути this.coinInfoList , а value это coinInfoList
+            field = value
             notifyDataSetChanged()
         }
 
     var onCoinClickListener: OnCoinClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
-        val binding =
-            ItemCoinInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemCoinInfoBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return CoinInfoViewHolder(binding)
     }
 
@@ -31,10 +35,8 @@ class CoinInfoAdapter() :
         val coin = coinInfoList[position]
         with(holder.binding) {
             with(coin) {
-                val symbolsTemplate =
-                    itemView.context.resources.getString(R.string.symbols_template)
-                val lastUpdateTemplate =
-                    itemView.context.resources.getString(R.string.last_update_template)
+                val symbolsTemplate = context.resources.getString(R.string.symbols_template)
+                val lastUpdateTemplate = context.resources.getString(R.string.last_update_template)
                 tvSymbols.text = String.format(symbolsTemplate, fromSymbol, toSymbol)
                 tvPrice.text = price
                 tvLastUpdate.text = String.format(lastUpdateTemplate, lastUpdate)
@@ -45,9 +47,6 @@ class CoinInfoAdapter() :
             }
         }
     }
-
-    inner class CoinInfoViewHolder(val binding: ItemCoinInfoBinding) :
-        RecyclerView.ViewHolder(binding.root)
 
     interface OnCoinClickListener {
         fun onCoinClick(coinPriceInfo: CoinInfo)

@@ -8,16 +8,17 @@ import com.example.cryptoappk.domain.CoinInfo
 import com.example.cryptoappk.presentation.adapters.CoinInfoAdapter
 
 class CoinPriceListActivity : AppCompatActivity() {
+
     private lateinit var viewModel: CoinViewModel
-    private lateinit var binding: ActivityCoinPriceListBinding
+
+    private val binding by lazy {
+        ActivityCoinPriceListBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        binding = ActivityCoinPriceListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val adapter = CoinInfoAdapter()
-        binding.rvCoinPriceList.adapter = adapter
+        val adapter = CoinInfoAdapter(this)
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinPriceInfo: CoinInfo) {
                 val intent = CoinDetailActivity.newIntent(
@@ -27,6 +28,8 @@ class CoinPriceListActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+        binding.rvCoinPriceList.adapter = adapter
+        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this) {
             adapter.coinInfoList = it
         }

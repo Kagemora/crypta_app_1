@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName
 //чтобы не делать для каждой валюты отдельный POJO , мы просто задаем JsonObject и будем парсить вручную
 //здесь содержатся все криптовалюты
 data class CoinInfoJsonContainerDto(
-
     @SerializedName("RAW")
     @Expose
     val json: JsonObject? = null

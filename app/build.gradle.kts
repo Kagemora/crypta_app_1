@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
+    id("kotlin-kapt")
 }
 
 android {
@@ -42,16 +42,15 @@ dependencies {
     val lifecycle_version = "2.7.0"
     val room_version = "2.6.1"
 
+    implementation ("androidx.work:work-runtime-ktx:2.9.0")
+
     implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
     implementation("com.squareup.picasso:picasso:2.8")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    ksp("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version")
-
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
