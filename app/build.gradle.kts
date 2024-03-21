@@ -42,13 +42,19 @@ dependencies {
     val lifecycle_version = "2.7.0"
     val room_version = "2.6.1"
 
+
+    implementation ("com.google.dagger:dagger-android:2.51")
+    implementation ("com.google.dagger:dagger-android-support:2.51")
+    kapt ("com.google.dagger:dagger-android-processor:2.42")
+    kapt ("com.google.dagger:dagger-compiler:2.42")
+
     implementation ("androidx.work:work-runtime-ktx:2.9.0")
 
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation("com.squareup.picasso:picasso:2.71828")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
